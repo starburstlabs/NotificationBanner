@@ -131,6 +131,9 @@ open class BaseNotificationBanner: UIView {
     /// Whether or not to post the default accessibility notification.
     public var shouldPostAccessibilityNotification: Bool = true
 
+    /// Additional distance of the banner conent from the top of the screen
+    public var topMargin: CGFloat = 0.0
+
     /// The offset distance of the customView form the left and right edges of the screen
     public var customViewEdgeOffset: CGFloat = 0.0
 
@@ -519,14 +522,14 @@ open class BaseNotificationBanner: UIView {
             return 16.0
         }
         
-        if alwaysShowStatusBar {
-            return UIApplication.shared.statusBarFrame.height
-        }
-
         // iOS 13 does not allow covering the status bar on non-notch iPhones
         // The banner needs to be moved further down under the status bar in this case
         guard #available(iOS 13.0, *), !NotificationBannerUtilities.isNotchFeaturedIPhone() else {
-            return 0
+            if !NotificationBannerUtilities.isNotchFeaturedIPhone() && alwaysShowStatusBar {
+                return UIApplication.shared.statusBarFrame.height
+            }
+
+            return topMargin
         }
 
         return UIApplication.shared.statusBarFrame.height
