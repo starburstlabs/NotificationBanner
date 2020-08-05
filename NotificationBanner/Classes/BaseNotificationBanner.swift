@@ -100,6 +100,9 @@ open class BaseNotificationBanner: UIView {
     /// The type of haptic to generate when a banner is displayed
     public var haptic: BannerHaptic = .heavy
 
+    /// If true, the status bar will always be shown regardless of phone type or banner style
+    public var alwaysShowStatusBar: Bool = false
+
     /// If true, notification will dismissed when tapped
     public var dismissOnTap: Bool = true
 
@@ -397,7 +400,7 @@ open class BaseNotificationBanner: UIView {
                 }
             } else {
                 appWindow?.addSubview(self)
-                if statusBarShouldBeShown() && !(parentViewController == nil && bannerPosition == .top) {
+                if (statusBarShouldBeShown() && !(parentViewController == nil && bannerPosition == .top)) || alwaysShowStatusBar {
                     appWindow?.windowLevel = UIWindow.Level.normal
                 } else {
                     appWindow?.windowLevel = UIWindow.Level.statusBar + 1
@@ -504,6 +507,10 @@ open class BaseNotificationBanner: UIView {
         The height adjustment needed in order for the banner to look properly displayed.
      */
     internal var heightAdjustment: CGFloat {
+        if alwaysShowStatusBar {
+            return UIApplication.shared.statusBarFrame.height
+        }
+
         // iOS 13 does not allow covering the status bar on non-notch iPhones
         // The banner needs to be moved further down under the status bar in this case
         guard #available(iOS 13.0, *), !NotificationBannerUtilities.isNotchFeaturedIPhone() else {
@@ -641,6 +648,9 @@ open class BaseNotificationBanner: UIView {
         a banner underneath the navigation bar
      */
     private func statusBarShouldBeShown() -> Bool {
+        if alwaysShowStatusBar {
+            return true
+        }
 
         for banner in bannerQueue.banners {
             if (banner.parentViewController == nil && banner.bannerPosition == .top) {
