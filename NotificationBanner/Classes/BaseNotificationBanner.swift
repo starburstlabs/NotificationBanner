@@ -124,6 +124,9 @@ open class BaseNotificationBanner: UIView {
     /// Whether or not to post the default accessibility notification.
     public var shouldPostAccessibilityNotification: Bool = true
 
+    /// The offset distance of the customView form the left and right edges of the screen
+    public var customViewEdgeOffset: CGFloat = 0.0
+
     /// The view that the notification layout is presented on. The constraints/frame of this should not be changed
     internal var contentView: UIView!
 
@@ -577,6 +580,7 @@ open class BaseNotificationBanner: UIView {
             withDuration: forced ? animationDuration / 2 : animationDuration,
             animations: {
                 self.frame = self.bannerPositionFrame.startFrame
+                self.alpha = 0
         }) { (completed) in
 
             self.removeFromSuperview()
