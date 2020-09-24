@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0A324F03251CF825002D4FEE /* MarqueeLabel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9A17891EC75DE000CF2261 /* MarqueeLabel.framework */; };
-		0A324F04251CF825002D4FEE /* MarqueeLabel.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA9A17891EC75DE000CF2261 /* MarqueeLabel.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		0A52C41824D88A7D00553FD5 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9A178B1EC75DE400CF2261 /* SnapKit.framework */; };
-		0A52C41924D88A7D00553FD5 /* SnapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA9A178B1EC75DE400CF2261 /* SnapKit.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		0D0D9ADF1F15D19D003B35A8 /* BannerPositionFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0D9ADE1F15D19D003B35A8 /* BannerPositionFrame.swift */; };
 		2B9A8469216538CA00A7418D /* GrowingNotificationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9A8468216538CA00A7418D /* GrowingNotificationBanner.swift */; };
 		2B9A846B216544E600A7418D /* String+heightForConstrainedWidth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9A846A216544E600A7418D /* String+heightForConstrainedWidth.swift */; };
@@ -43,21 +41,6 @@
 			script = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
 		};
 /* End PBXBuildRule section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		0A52C41724D88A7C00553FD5 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				0A324F04251CF825002D4FEE /* MarqueeLabel.framework in Embed Frameworks */,
-				0A52C41924D88A7D00553FD5 /* SnapKit.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0D0D9ADE1F15D19D003B35A8 /* BannerPositionFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerPositionFrame.swift; sourceTree = "<group>"; };
@@ -195,7 +178,6 @@
 				823255871EB872AB006F95C3 /* Frameworks */,
 				823255881EB872AB006F95C3 /* Headers */,
 				823255891EB872AB006F95C3 /* Resources */,
-				0A52C41724D88A7C00553FD5 /* Embed Frameworks */,
 			);
 			buildRules = (
 				0A03A63424D87DA000026B72 /* PBXBuildRule */,
