@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A324F03251CF825002D4FEE /* MarqueeLabel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9A17891EC75DE000CF2261 /* MarqueeLabel.framework */; };
-		0A52C41824D88A7D00553FD5 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9A178B1EC75DE400CF2261 /* SnapKit.framework */; };
+		0AB30AA025B20C7F00A6DBE6 /* MarqueeLabel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB30A9E25B20C7F00A6DBE6 /* MarqueeLabel.framework */; };
+		0AB30AA225B20C7F00A6DBE6 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB30A9F25B20C7F00A6DBE6 /* SnapKit.framework */; };
 		0D0D9ADF1F15D19D003B35A8 /* BannerPositionFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0D9ADE1F15D19D003B35A8 /* BannerPositionFrame.swift */; };
 		2B9A8469216538CA00A7418D /* GrowingNotificationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9A8468216538CA00A7418D /* GrowingNotificationBanner.swift */; };
 		2B9A846B216544E600A7418D /* String+heightForConstrainedWidth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9A846A216544E600A7418D /* String+heightForConstrainedWidth.swift */; };
@@ -43,6 +43,8 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXFileReference section */
+		0AB30A9E25B20C7F00A6DBE6 /* MarqueeLabel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MarqueeLabel.framework; path = Carthage/Build/iOS/MarqueeLabel.framework; sourceTree = "<group>"; };
+		0AB30A9F25B20C7F00A6DBE6 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		0D0D9ADE1F15D19D003B35A8 /* BannerPositionFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerPositionFrame.swift; sourceTree = "<group>"; };
 		2B9A8468216538CA00A7418D /* GrowingNotificationBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrowingNotificationBanner.swift; sourceTree = "<group>"; };
 		2B9A846A216544E600A7418D /* String+heightForConstrainedWidth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+heightForConstrainedWidth.swift"; sourceTree = "<group>"; };
@@ -61,8 +63,6 @@
 		823255BB1EB87CB7006F95C3 /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
 		951D609C1F71BF82008E4BCC /* NotificationBannerUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBannerUtilities.swift; sourceTree = "<group>"; };
 		A999043E1EEF64F0006DA132 /* BannerHapticGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerHapticGenerator.swift; sourceTree = "<group>"; };
-		EA9A17891EC75DE000CF2261 /* MarqueeLabel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MarqueeLabel.framework; path = Carthage/Build/iOS/MarqueeLabel.framework; sourceTree = "<group>"; };
-		EA9A178B1EC75DE400CF2261 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		F63A90592381423E00F70CEB /* UIWindow+orientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+orientation.swift"; sourceTree = "<group>"; };
 		F7E13CF51FB192ED0008EE4C /* NotificationBannerUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationBannerUtilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -72,21 +72,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A324F03251CF825002D4FEE /* MarqueeLabel.framework in Frameworks */,
-				0A52C41824D88A7D00553FD5 /* SnapKit.framework in Frameworks */,
+				0AB30AA025B20C7F00A6DBE6 /* MarqueeLabel.framework in Frameworks */,
+				0AB30AA225B20C7F00A6DBE6 /* SnapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0AB30A9D25B20C7F00A6DBE6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0AB30A9E25B20C7F00A6DBE6 /* MarqueeLabel.framework */,
+				0AB30A9F25B20C7F00A6DBE6 /* SnapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		823255811EB872AB006F95C3 = {
 			isa = PBXGroup;
 			children = (
 				823255B71EB8735E006F95C3 /* Root Files */,
 				8232558D1EB872AB006F95C3 /* NotificationBanner */,
 				8232558C1EB872AB006F95C3 /* Products */,
-				EA9A17881EC75DE000CF2261 /* Frameworks */,
+				0AB30A9D25B20C7F00A6DBE6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -147,15 +156,6 @@
 			name = "Root Files";
 			sourceTree = "<group>";
 		};
-		EA9A17881EC75DE000CF2261 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				EA9A178B1EC75DE400CF2261 /* SnapKit.framework */,
-				EA9A17891EC75DE000CF2261 /* MarqueeLabel.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -178,7 +178,6 @@
 				823255871EB872AB006F95C3 /* Frameworks */,
 				823255881EB872AB006F95C3 /* Headers */,
 				823255891EB872AB006F95C3 /* Resources */,
-				0A970E192535FEE800C1BBEC /* Carthage Run Script */,
 			);
 			buildRules = (
 				0A03A63424D87DA000026B72 /* PBXBuildRule */,
@@ -232,31 +231,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		0A970E192535FEE800C1BBEC /* Carthage Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/MarqueeLabel.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
-			);
-			name = "Carthage Run Script";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/MarqueeLabel.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SnapKit.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		823255861EB872AB006F95C3 /* Sources */ = {
