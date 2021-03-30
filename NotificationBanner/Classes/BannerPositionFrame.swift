@@ -48,8 +48,9 @@ class BannerPositionFrame {
         
         self.endFrame = endFrame(
             for: bannerPosition,
-            bannerWidth: bannerWidth,
+            bannerWidth: startFrame.width,
             bannerHeight: bannerHeight,
+            minX: startFrame.minX,
             maxY: maxY,
             finishYOffset: finishYOffset,
             edgeInsets: edgeInsets
@@ -74,20 +75,22 @@ class BannerPositionFrame {
     ) -> CGRect {
         
         let edgeInsets = edgeInsets ?? .zero
-        
+        let width = min(bannerWidth - edgeInsets.left - edgeInsets.right, 570)
+        let x = (bannerWidth - width) / 2
+
         switch bannerPosition {
         case .bottom:
             return CGRect(
-                x: edgeInsets.left,
+                x: x,
                 y: maxY,
-                width: bannerWidth - edgeInsets.left - edgeInsets.right,
+                width: width,
                 height: bannerHeight
             )
         case .top:
             return CGRect(
-                x: edgeInsets.left,
+                x: x,
                 y: -bannerHeight,
-                width: bannerWidth - edgeInsets.left - edgeInsets.right,
+                width: width,
                 height: bannerHeight
             )
 
@@ -107,6 +110,7 @@ class BannerPositionFrame {
         for bannerPosition: BannerPosition,
         bannerWidth: CGFloat,
         bannerHeight: CGFloat,
+        minX: CGFloat,
         maxY: CGFloat,
         finishYOffset: CGFloat = 0,
         edgeInsets: UIEdgeInsets?
@@ -117,15 +121,15 @@ class BannerPositionFrame {
         switch bannerPosition {
         case .bottom:
             return CGRect(
-                x: edgeInsets.left,
+                x: minX,
                 y: maxY - bannerHeight - edgeInsets.bottom - finishYOffset,
-                width: startFrame.width,
+                width: bannerWidth,
                 height: startFrame.height)
         case .top:
             return CGRect(
-                x: edgeInsets.left,
+                x: minX,
                 y: edgeInsets.top + finishYOffset,
-                width: startFrame.width,
+                width: bannerWidth,
                 height: startFrame.height
             )
         }
