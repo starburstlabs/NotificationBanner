@@ -551,17 +551,6 @@ open class BaseNotificationBanner: UIView {
         
         updateSpacerViewHeight()
 
-        let edgeInsets = bannerEdgeInsets ?? .zero
-
-        let newY = (bannerPosition == .top) ? (frame.origin.y) : (window.height - bannerHeight + edgeInsets.top - edgeInsets.bottom)
-        
-        frame = CGRect(
-            x: frame.origin.x,
-            y: newY,
-            width: window.width - edgeInsets.left - edgeInsets.right,
-            height: bannerHeight
-        )
-
         bannerPositionFrame = BannerPositionFrame(
             bannerPosition: bannerPosition,
             bannerWidth: window.width,
@@ -570,6 +559,8 @@ open class BaseNotificationBanner: UIView {
             finishYOffset: finishBannerYOffset(),
             edgeInsets: bannerEdgeInsets
         )
+
+        frame = bannerPositionFrame.endFrame
     }
 
     /**
