@@ -33,6 +33,7 @@ class BannerPositionFrame {
         bannerPosition: BannerPosition,
         bannerWidth: CGFloat,
         bannerHeight: CGFloat,
+        windowWidth: CGFloat,
         maxY: CGFloat,
         finishYOffset: CGFloat = 0,
         edgeInsets: UIEdgeInsets?
@@ -42,6 +43,7 @@ class BannerPositionFrame {
             for: bannerPosition,
             bannerWidth: bannerWidth,
             bannerHeight: bannerHeight,
+            windowWidth: windowWidth,
             maxY: maxY,
             edgeInsets: edgeInsets
         )
@@ -62,6 +64,7 @@ class BannerPositionFrame {
         - parameter bannerPosition: The position the notification banners should slide in from
         - parameter bannerWidth: The width of the notification banner
         - parameter bannerHeight: The height of the notification banner
+        - parameter windowWidth: The width of the app window
         - parameter maxY: The maximum `y` position the banner can slide in from. This value is only used 
         if the bannerPosition is .bottom
         - parameter edgeInsets: The sides edges insets from superview
@@ -70,13 +73,14 @@ class BannerPositionFrame {
         for bannerPosition: BannerPosition,
         bannerWidth: CGFloat,
         bannerHeight: CGFloat,
+        windowWidth: CGFloat,
         maxY: CGFloat,
         edgeInsets: UIEdgeInsets?
     ) -> CGRect {
         
         let edgeInsets = edgeInsets ?? .zero
         let width = min(bannerWidth - edgeInsets.left - edgeInsets.right, 570)
-        let x = (bannerWidth - width) / 2
+        let x = (windowWidth - width) / 2
 
         switch bannerPosition {
         case .bottom:
