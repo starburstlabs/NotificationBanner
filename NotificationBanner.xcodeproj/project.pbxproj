@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0AB30AA025B20C7F00A6DBE6 /* MarqueeLabel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB30A9E25B20C7F00A6DBE6 /* MarqueeLabel.framework */; };
-		0AB30AA225B20C7F00A6DBE6 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB30A9F25B20C7F00A6DBE6 /* SnapKit.framework */; };
+		0AE41A9226FBC57D00B08F5E /* MarqueeLabel.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AE41A9026FBC57D00B08F5E /* MarqueeLabel.xcframework */; };
+		0AE41A9326FBC57D00B08F5E /* MarqueeLabel.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0AE41A9026FBC57D00B08F5E /* MarqueeLabel.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0AE41A9426FBC57D00B08F5E /* SnapKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AE41A9126FBC57D00B08F5E /* SnapKit.xcframework */; };
+		0AE41A9526FBC57D00B08F5E /* SnapKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0AE41A9126FBC57D00B08F5E /* SnapKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0D0D9ADF1F15D19D003B35A8 /* BannerPositionFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0D9ADE1F15D19D003B35A8 /* BannerPositionFrame.swift */; };
 		2B9A8469216538CA00A7418D /* GrowingNotificationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9A8468216538CA00A7418D /* GrowingNotificationBanner.swift */; };
 		2B9A846B216544E600A7418D /* String+heightForConstrainedWidth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9A846A216544E600A7418D /* String+heightForConstrainedWidth.swift */; };
@@ -26,25 +28,24 @@
 		F7E13CF61FB192ED0008EE4C /* NotificationBannerUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E13CF51FB192ED0008EE4C /* NotificationBannerUtilities.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXBuildRule section */
-		0A03A63424D87DA000026B72 /* PBXBuildRule */ = {
-			isa = PBXBuildRule;
-			compilerSpec = com.apple.compilers.proxy.script;
-			fileType = pattern.proxy;
-			inputFiles = (
-				"$(SRCROOT)/Carthage/Build/iOS/MarqueeLabel.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
+/* Begin PBXCopyFilesBuildPhase section */
+		0AE41A9626FBC57D00B08F5E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				0AE41A9526FBC57D00B08F5E /* SnapKit.xcframework in Embed Frameworks */,
+				0AE41A9326FBC57D00B08F5E /* MarqueeLabel.xcframework in Embed Frameworks */,
 			);
-			isEditable = 1;
-			outputFiles = (
-			);
-			script = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-/* End PBXBuildRule section */
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0AB30A9E25B20C7F00A6DBE6 /* MarqueeLabel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MarqueeLabel.framework; path = Carthage/Build/iOS/MarqueeLabel.framework; sourceTree = "<group>"; };
-		0AB30A9F25B20C7F00A6DBE6 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
+		0AE41A9026FBC57D00B08F5E /* MarqueeLabel.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MarqueeLabel.xcframework; path = Carthage/Build/MarqueeLabel.xcframework; sourceTree = "<group>"; };
+		0AE41A9126FBC57D00B08F5E /* SnapKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SnapKit.xcframework; path = Carthage/Build/SnapKit.xcframework; sourceTree = "<group>"; };
 		0D0D9ADE1F15D19D003B35A8 /* BannerPositionFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerPositionFrame.swift; sourceTree = "<group>"; };
 		2B9A8468216538CA00A7418D /* GrowingNotificationBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrowingNotificationBanner.swift; sourceTree = "<group>"; };
 		2B9A846A216544E600A7418D /* String+heightForConstrainedWidth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+heightForConstrainedWidth.swift"; sourceTree = "<group>"; };
@@ -72,8 +73,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0AB30AA025B20C7F00A6DBE6 /* MarqueeLabel.framework in Frameworks */,
-				0AB30AA225B20C7F00A6DBE6 /* SnapKit.framework in Frameworks */,
+				0AE41A9426FBC57D00B08F5E /* SnapKit.xcframework in Frameworks */,
+				0AE41A9226FBC57D00B08F5E /* MarqueeLabel.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,8 +84,8 @@
 		0AB30A9D25B20C7F00A6DBE6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0AB30A9E25B20C7F00A6DBE6 /* MarqueeLabel.framework */,
-				0AB30A9F25B20C7F00A6DBE6 /* SnapKit.framework */,
+				0AE41A9026FBC57D00B08F5E /* MarqueeLabel.xcframework */,
+				0AE41A9126FBC57D00B08F5E /* SnapKit.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -178,9 +179,9 @@
 				823255871EB872AB006F95C3 /* Frameworks */,
 				823255881EB872AB006F95C3 /* Headers */,
 				823255891EB872AB006F95C3 /* Resources */,
+				0AE41A9626FBC57D00B08F5E /* Embed Frameworks */,
 			);
 			buildRules = (
-				0A03A63424D87DA000026B72 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
