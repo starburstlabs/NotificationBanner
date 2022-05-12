@@ -158,9 +158,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 823255931EB872AB006F95C3 /* Build configuration list for PBXNativeTarget "NotificationBanner" */;
 			buildPhases = (
+				823255881EB872AB006F95C3 /* Headers */,
 				823255861EB872AB006F95C3 /* Sources */,
 				823255871EB872AB006F95C3 /* Frameworks */,
-				823255881EB872AB006F95C3 /* Headers */,
 				823255891EB872AB006F95C3 /* Resources */,
 			);
 			buildRules = (
