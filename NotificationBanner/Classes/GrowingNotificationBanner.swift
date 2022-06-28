@@ -35,7 +35,7 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
                 // Calculate the height based on contents of labels
                 
                 // Determine available width for displaying the label
-                var boundingWidth = UIScreen.main.bounds.width - padding * 2
+                var boundingWidth = UIScreen.main.bounds.width - (padding + customViewEdgeOffset) * 2
                 
                 // Substract safeAreaInsets from width, if available
                 // We have to use keyWindow to ask for safeAreaInsets as `self` only knows its' safeAreaInsets in layoutSubviews
@@ -93,7 +93,7 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
     private var rightView: UIView?
     
     /// Square size for left/right view if set
-    private let sideViewSize: CGFloat
+    private var sideViewSize: CGFloat
     
     /// Font used for the title label
     internal var titleFont: UIFont = UIFont.systemFont(ofSize: 17.5, weight: UIFont.Weight.bold)
@@ -117,67 +117,15 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
         self.sideViewSize = sideViewSize
         
         super.init(style: style, colors: colors)
-        
-        let labelsView = UIStackView()
-        labelsView.axis = .vertical
-        labelsView.spacing = innerSpacing
-        
-        let outerStackView = UIStackView()
-        outerStackView.spacing = padding
-        
-        switch iconPosition {
-        case .top:
-            outerStackView.alignment = .top
-        case .center:
-            outerStackView.alignment = .center
-        }
-        
-        if let leftView = leftView {
-            outerStackView.addArrangedSubview(leftView)
-            leftView.snp.makeConstraints { $0.size.equalTo(sideViewSize) }
-        }
-        
-        outerStackView.addArrangedSubview(labelsView)
-        
-        if let title = title {
-            titleLabel = UILabel()
-            titleLabel!.font = titleFont
-            titleLabel!.numberOfLines = 0
-            titleLabel!.textColor = .white
-            titleLabel!.text = title
-            titleLabel!.setContentHuggingPriority(.required, for: .vertical)
-            labelsView.addArrangedSubview(titleLabel!)
-        }
-        
-        if let subtitle = subtitle {
-            subtitleLabel = UILabel()
-            subtitleLabel!.font = subtitleFont
-            subtitleLabel!.numberOfLines = 0
-            subtitleLabel!.textColor = .white
-            subtitleLabel!.text = subtitle
-            if title == nil {
-                subtitleLabel!.setContentHuggingPriority(.required, for: .vertical)
-            }
-            labelsView.addArrangedSubview(subtitleLabel!)
-        }
-        
-        if let rightView = rightView {
-            outerStackView.addArrangedSubview(rightView)
-            rightView.snp.makeConstraints { $0.size.equalTo(sideViewSize) }
-        }
-        
-        contentView.addSubview(outerStackView)
-        outerStackView.snp.makeConstraints { (make) in
-            if #available(iOS 11.0, *) {
-                make.left.equalTo(safeAreaLayoutGuide).offset(padding)
-                make.right.equalTo(safeAreaLayoutGuide).offset(-padding)
-            } else {
-                make.left.equalToSuperview().offset(padding)
-                make.right.equalToSuperview().offset(-padding)
-            }
-            
-            make.centerY.equalToSuperview()
-        }
+
+        applyTextAndSubviews(
+            title: title,
+            subtitle: subtitle,
+            leftView: leftView,
+            rightView: rightView,
+            iconPosition: iconPosition,
+            sideViewSize: sideViewSize
+        )
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -235,5 +183,78 @@ public extension GrowingNotificationBanner {
             updateBannerHeight()
         }
     }
-    
+
+    func applyTextAndSubviews(title: String? = nil,
+                              subtitle: String? = nil,
+                              leftView: UIView? = nil,
+                              rightView: UIView? = nil,
+                              iconPosition: IconPosition = .center,
+                              sideViewSize: CGFloat = 24.0) {
+
+        self.leftView = leftView
+        self.rightView = rightView
+        self.sideViewSize = sideViewSize
+
+        let labelsView = UIStackView()
+        labelsView.axis = .vertical
+        labelsView.spacing = innerSpacing
+
+        let outerStackView = UIStackView()
+        outerStackView.spacing = padding
+
+        switch iconPosition {
+        case .top:
+            outerStackView.alignment = .top
+        case .center:
+            outerStackView.alignment = .center
+        }
+
+        if let leftView = leftView {
+            outerStackView.addArrangedSubview(leftView)
+            leftView.snp.makeConstraints { $0.size.equalTo(sideViewSize) }
+        }
+
+        outerStackView.addArrangedSubview(labelsView)
+
+        if let title = title {
+            titleLabel = UILabel()
+            titleLabel!.font = titleFont
+            titleLabel!.numberOfLines = 0
+            titleLabel!.textColor = .white
+            titleLabel!.text = title
+            titleLabel!.setContentHuggingPriority(.required, for: .vertical)
+            labelsView.addArrangedSubview(titleLabel!)
+        }
+
+        if let subtitle = subtitle {
+            subtitleLabel = UILabel()
+            subtitleLabel!.font = subtitleFont
+            subtitleLabel!.numberOfLines = 0
+            subtitleLabel!.textColor = .white
+            subtitleLabel!.text = subtitle
+            if title == nil {
+                subtitleLabel!.setContentHuggingPriority(.required, for: .vertical)
+            }
+            labelsView.addArrangedSubview(subtitleLabel!)
+        }
+
+        if let rightView = rightView {
+            outerStackView.addArrangedSubview(rightView)
+            rightView.snp.makeConstraints { $0.size.equalTo(sideViewSize) }
+        }
+
+        contentView.addSubview(outerStackView)
+        let offset = padding + customViewEdgeOffset
+        outerStackView.snp.makeConstraints { (make) in
+            if #available(iOS 11.0, *) {
+                make.left.equalTo(safeAreaLayoutGuide).offset(offset)
+                make.right.equalTo(safeAreaLayoutGuide).offset(-offset)
+            } else {
+                make.left.equalToSuperview().offset(offset)
+                make.right.equalToSuperview().offset(-offset)
+            }
+
+            make.centerY.equalToSuperview()
+        }
+    }
 }

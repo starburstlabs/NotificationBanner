@@ -100,6 +100,9 @@ open class BaseNotificationBanner: UIView {
     /// The type of haptic to generate when a banner is displayed
     public var haptic: BannerHaptic = .heavy
 
+    /// If true, the status bar will always be shown regardless of phone type or banner style
+    public var alwaysShowStatusBar: Bool = false
+
     /// If true, notification will dismissed when tapped
     public var dismissOnTap: Bool = true
 
@@ -123,6 +126,12 @@ open class BaseNotificationBanner: UIView {
     
     /// Whether or not to post the default accessibility notification.
     public var shouldPostAccessibilityNotification: Bool = true
+
+    /// Additional distance of the banner conent from the top of the screen
+    public var topMargin: CGFloat = 0.0
+
+    /// The offset distance of the customView form the left and right edges of the screen
+    public var customViewEdgeOffset: CGFloat = 0.0
 
     /// The view that the notification layout is presented on. The constraints/frame of this should not be changed
     internal var contentView: UIView!
@@ -296,6 +305,7 @@ open class BaseNotificationBanner: UIView {
             bannerPosition: bannerPosition,
             bannerWidth: window.width,
             bannerHeight: bannerHeight,
+            windowWidth: window.width,
             maxY: maximumYPosition(),
             finishYOffset: finishBannerYOffset(),
             edgeInsets: bannerEdgeInsets
@@ -394,7 +404,7 @@ open class BaseNotificationBanner: UIView {
                 }
             } else {
                 appWindow?.addSubview(self)
-                if statusBarShouldBeShown() && !(parentViewController == nil && bannerPosition == .top) {
+                if (statusBarShouldBeShown() && !(parentViewController == nil && bannerPosition == .top)) || alwaysShowStatusBar {
                     appWindow?.windowLevel = UIWindow.Level.normal
                 } else {
                     appWindow?.windowLevel = UIWindow.Level.statusBar + 1
@@ -504,7 +514,11 @@ open class BaseNotificationBanner: UIView {
         // iOS 13 does not allow covering the status bar on non-notch iPhones
         // The banner needs to be moved further down under the status bar in this case
         guard #available(iOS 13.0, *), !NotificationBannerUtilities.isNotchFeaturedIPhone() else {
-            return 0
+            if !NotificationBannerUtilities.isNotchFeaturedIPhone() && alwaysShowStatusBar {
+                return UIApplication.shared.statusBarFrame.height
+            }
+
+            return topMargin
         }
 
         return UIApplication.shared.statusBarFrame.height
@@ -526,25 +540,17 @@ open class BaseNotificationBanner: UIView {
         
         updateSpacerViewHeight()
 
-        let edgeInsets = bannerEdgeInsets ?? .zero
-
-        let newY = (bannerPosition == .top) ? (frame.origin.y) : (window.height - bannerHeight + edgeInsets.top - edgeInsets.bottom)
-        
-        frame = CGRect(
-            x: frame.origin.x,
-            y: newY,
-            width: window.width - edgeInsets.left - edgeInsets.right,
-            height: bannerHeight
-        )
-
         bannerPositionFrame = BannerPositionFrame(
             bannerPosition: bannerPosition,
             bannerWidth: window.width,
             bannerHeight: bannerHeight,
+            windowWidth: window.width,
             maxY: maximumYPosition(),
             finishYOffset: finishBannerYOffset(),
             edgeInsets: bannerEdgeInsets
         )
+
+        frame = bannerPositionFrame.endFrame
     }
 
     /**
@@ -577,6 +583,7 @@ open class BaseNotificationBanner: UIView {
             withDuration: forced ? animationDuration / 2 : animationDuration,
             animations: {
                 self.frame = self.bannerPositionFrame.startFrame
+                self.alpha = 0
         }) { (completed) in
 
             self.removeFromSuperview()
@@ -637,6 +644,9 @@ open class BaseNotificationBanner: UIView {
         a banner underneath the navigation bar
      */
     private func statusBarShouldBeShown() -> Bool {
+        if alwaysShowStatusBar {
+            return true
+        }
 
         for banner in bannerQueue.banners {
             if (banner.parentViewController == nil && banner.bannerPosition == .top) {

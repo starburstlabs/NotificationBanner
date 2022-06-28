@@ -49,100 +49,7 @@ open class NotificationBanner: BaseNotificationBanner {
     ) {
         
         super.init(style: style, colors: colors)
-        
-        if let leftView = leftView {
-            contentView.addSubview(leftView)
-            
-            let size = (leftView.frame.height > 0) ? min(44, leftView.frame.height) : 44
-            
-            leftView.snp.makeConstraints({ (make) in
-                make.centerY.equalToSuperview().offset(heightAdjustment / 4)
-                make.left.equalToSuperview().offset(10)
-                make.size.equalTo(size)
-            })
-        }
-        
-        if let rightView = rightView {
-            contentView.addSubview(rightView)
-            
-            let size = (rightView.frame.height > 0) ? min(44, rightView.frame.height) : 44
-            rightView.snp.makeConstraints({ (make) in
-                make.centerY.equalToSuperview().offset(heightAdjustment / 4)
-                make.left.equalToSuperview().offset(10)
-                make.size.equalTo(size)
-            })
-        }
-        
-        let labelsView = UIView()
-        contentView.addSubview(labelsView)
-        
-        if let title = title {
-            titleLabel = MarqueeLabel()
-            (titleLabel as! MarqueeLabel).type = .left
-            titleLabel!.font = titleFont
-            titleLabel!.textColor = .white
-            titleLabel!.text = title
-            labelsView.addSubview(titleLabel!)
-            
-            titleLabel!.snp.makeConstraints { (make) in
-                make.top.equalToSuperview()
-                make.left.equalToSuperview()
-                make.right.equalToSuperview()
-                if let _ = subtitle {
-                    titleLabel!.numberOfLines = 1
-                } else {
-                    titleLabel!.numberOfLines = 2
-                }
-            }
-        }
-        
-        if let subtitle = subtitle {
-            subtitleLabel = MarqueeLabel()
-            subtitleLabel!.type = .left
-            subtitleLabel!.font = subtitleFont
-            subtitleLabel!.numberOfLines = 1
-            subtitleLabel!.textColor = .white
-            subtitleLabel!.text = subtitle
-            labelsView.addSubview(subtitleLabel!)
-            
-            subtitleLabel!.snp.makeConstraints { (make) in
-                if title != nil {
-                    make.top.equalTo(titleLabel!.snp.bottom).offset(2.5)
-                    make.left.equalTo(titleLabel!)
-                    make.right.equalTo(titleLabel!)
-                }
-                else {
-                    make.top.equalToSuperview()
-                    make.left.equalToSuperview()
-                    make.right.equalToSuperview()
-                }
-            }
-        }
-        
-        labelsView.snp.makeConstraints { (make) in
-            make.centerY.equalToSuperview().offset(heightAdjustment / 4)
-            
-            if let leftView = leftView {
-                make.left.equalTo(leftView.snp.right).offset(padding)
-            } else {
-                make.left.equalToSuperview().offset(padding)
-            }
-            
-            if let rightView = rightView {
-                make.right.equalTo(rightView.snp.left).offset(-padding)
-            } else {
-                make.right.equalToSuperview().offset(-padding)
-            }
-            
-            if let subtitleLabel = subtitleLabel {
-                make.bottom.equalTo(subtitleLabel)
-            } else {
-                make.bottom.equalTo(titleLabel!)
-            }
-        }
-        
-        updateMarqueeLabelsDurations()
-        
+        applyTextAndSubviews(title: title, subtitle: subtitle, leftView: leftView, rightView: rightView)
     }
     
     public convenience init(
@@ -227,5 +134,103 @@ public extension NotificationBanner {
             updateBannerHeight()
         }
     }
-    
+
+    func applyTextAndSubviews(title: String? = nil,
+                              subtitle: String? = nil,
+                              leftView: UIView? = nil,
+                              rightView: UIView? = nil) {
+        
+        if let leftView = leftView {
+            contentView.addSubview(leftView)
+
+            let size = (leftView.frame.height > 0) ? min(44, leftView.frame.height) : 44
+
+            leftView.snp.makeConstraints({ (make) in
+                make.centerY.equalToSuperview().offset(heightAdjustment / 4)
+                make.left.equalToSuperview().offset(10)
+                make.size.equalTo(size)
+            })
+        }
+
+        if let rightView = rightView {
+            contentView.addSubview(rightView)
+
+            let size = (rightView.frame.height > 0) ? min(44, rightView.frame.height) : 44
+            rightView.snp.makeConstraints({ (make) in
+                make.centerY.equalToSuperview().offset(heightAdjustment / 4)
+                make.left.equalToSuperview().offset(10)
+                make.size.equalTo(size)
+            })
+        }
+
+        let labelsView = UIView()
+        contentView.addSubview(labelsView)
+
+        if let title = title {
+            titleLabel = MarqueeLabel()
+            (titleLabel as! MarqueeLabel).type = .left
+            titleLabel!.font = titleFont
+            titleLabel!.textColor = .white
+            titleLabel!.text = title
+            labelsView.addSubview(titleLabel!)
+
+            titleLabel!.snp.makeConstraints { (make) in
+                make.top.equalToSuperview()
+                make.left.equalToSuperview()
+                make.right.equalToSuperview()
+                if let _ = subtitle {
+                    titleLabel!.numberOfLines = 1
+                } else {
+                    titleLabel!.numberOfLines = 2
+                }
+            }
+        }
+
+        if let subtitle = subtitle {
+            subtitleLabel = MarqueeLabel()
+            subtitleLabel!.type = .left
+            subtitleLabel!.font = subtitleFont
+            subtitleLabel!.numberOfLines = 1
+            subtitleLabel!.textColor = .white
+            subtitleLabel!.text = subtitle
+            labelsView.addSubview(subtitleLabel!)
+
+            subtitleLabel!.snp.makeConstraints { (make) in
+                if title != nil {
+                    make.top.equalTo(titleLabel!.snp.bottom).offset(2.5)
+                    make.left.equalTo(titleLabel!)
+                    make.right.equalTo(titleLabel!)
+                }
+                else {
+                    make.top.equalToSuperview()
+                    make.left.equalToSuperview()
+                    make.right.equalToSuperview()
+                }
+            }
+        }
+
+        labelsView.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview().offset(heightAdjustment / 4)
+
+            if let leftView = leftView {
+                make.left.equalTo(leftView.snp.right).offset(padding)
+            } else {
+                make.left.equalToSuperview().offset(padding)
+            }
+
+            if let rightView = rightView {
+                make.right.equalTo(rightView.snp.left).offset(-padding)
+            } else {
+                make.right.equalToSuperview().offset(-padding)
+            }
+
+            if let subtitleLabel = subtitleLabel {
+                make.bottom.equalTo(subtitleLabel)
+            } else {
+                make.bottom.equalTo(titleLabel!)
+            }
+        }
+
+        updateMarqueeLabelsDurations()
+    }
 }
