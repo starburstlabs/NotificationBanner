@@ -22,6 +22,8 @@ DerivedData
 # Bundler
 .bundle
 
+# We now include the Carthage directory in git so that we can remove the TV and Watch targets from
+# the dependencies which are not used in Wealthbox and are not included by default in Xcode 14+
 # Carthage
 # We recommend against adding the Pods directory to your .gitignore. However
 # you should judge for yourself, the pros and cons are mentioned at:
