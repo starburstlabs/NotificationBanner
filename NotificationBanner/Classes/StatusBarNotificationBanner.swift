@@ -16,98 +16,98 @@
 
  */
 
-import UIKit
-
 import MarqueeLabel
+import UIKit
 
 @objcMembers
 open class StatusBarNotificationBanner: BaseNotificationBanner {
 
-    public override var bannerHeight: CGFloat {
-        get {
-            if let customBannerHeight = customBannerHeight {
-                return customBannerHeight
-            } else if shouldAdjustForNotchFeaturedIphone() {
-                return 50.0
-            } else {
-                return 20.0 + heightAdjustment
-            }
-        } set {
-            customBannerHeight = newValue
-        }
+  public override var bannerHeight: CGFloat {
+    get {
+      if let customBannerHeight = customBannerHeight {
+        return customBannerHeight
+      } else if shouldAdjustForNotchFeaturedIphone() {
+        return 50.0
+      } else {
+        return 20.0 + heightAdjustment
+      }
+    }
+    set {
+      customBannerHeight = newValue
+    }
+  }
+
+  override init(style: BannerStyle, colors: BannerColorsProtocol? = nil) {
+    super.init(style: style, colors: colors)
+
+    titleLabel = MarqueeLabel()
+    (titleLabel as! MarqueeLabel).animationDelay = 2
+    (titleLabel as! MarqueeLabel).type = .leftRight
+    titleLabel!.font = UIFont.systemFont(ofSize: 12.5, weight: UIFont.Weight.bold)
+    titleLabel!.textAlignment = .center
+    titleLabel!.textColor = .white
+    contentView.addSubview(titleLabel!)
+
+    titleLabel!.snp.makeConstraints { (make) in
+      make.top.equalToSuperview().offset(heightAdjustment)
+      make.left.equalToSuperview().offset(5)
+      make.right.equalToSuperview().offset(-5)
+      make.bottom.equalToSuperview()
     }
 
-    override init(style: BannerStyle, colors: BannerColorsProtocol? = nil) {
-        super.init(style: style, colors: colors)
+    updateMarqueeLabelsDurations()
+  }
 
-        titleLabel = MarqueeLabel()
-        (titleLabel as! MarqueeLabel).animationDelay = 2
-        (titleLabel as! MarqueeLabel).type = .leftRight
-        titleLabel!.font = UIFont.systemFont(ofSize: 12.5, weight: UIFont.Weight.bold)
-        titleLabel!.textAlignment = .center
-        titleLabel!.textColor = .white
-        contentView.addSubview(titleLabel!)
+  public convenience init(
+    title: String,
+    style: BannerStyle = .info,
+    colors: BannerColorsProtocol? = nil
+  ) {
+    self.init(style: style, colors: colors)
+    titleLabel!.text = title
+  }
 
-        titleLabel!.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(heightAdjustment)
-            make.left.equalToSuperview().offset(5)
-            make.right.equalToSuperview().offset(-5)
-            make.bottom.equalToSuperview()
-        }
+  public convenience init(
+    attributedTitle: NSAttributedString,
+    style: BannerStyle = .info,
+    colors: BannerColorsProtocol? = nil
+  ) {
+    self.init(style: style, colors: colors)
+    titleLabel!.attributedText = attributedTitle
+  }
 
-        updateMarqueeLabelsDurations()
+  public init(customView: UIView) {
+    super.init(style: .customView)
+    self.customView = customView
+
+    contentView.addSubview(customView)
+    customView.snp.makeConstraints { make in
+      make.edges.equalTo(contentView)
     }
 
-    public convenience init(
-        title: String,
-        style: BannerStyle = .info,
-        colors: BannerColorsProtocol? = nil
-    ) {
-        self.init(style: style, colors: colors)
-        titleLabel!.text = title
-    }
+    spacerView.backgroundColor = customView.backgroundColor
+  }
 
-    public convenience init(
-        attributedTitle: NSAttributedString,
-        style: BannerStyle = .info,
-        colors: BannerColorsProtocol? = nil
-    ) {
-        self.init(style: style, colors: colors)
-        titleLabel!.attributedText = attributedTitle
-    }
-
-    public init(customView: UIView) {
-        super.init(style: .customView)
-        self.customView = customView
-        
-        contentView.addSubview(customView)
-        customView.snp.makeConstraints { make in
-            make.edges.equalTo(contentView)
-        }
-
-        spacerView.backgroundColor = customView.backgroundColor
-    }
-
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
+  required public init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+  }
 
 }
 
-public extension StatusBarNotificationBanner {
-    
-    func applyStyling(
-        titleColor: UIColor? = nil,
-        titleTextAlign: NSTextAlignment? = nil
-    ) {
-        
-        if let titleColor = titleColor {
-            titleLabel!.textColor = titleColor
-        }
-        
-        if let titleTextAlign = titleTextAlign {
-            titleLabel!.textAlignment = titleTextAlign
-        }
+extension StatusBarNotificationBanner {
+
+  public func applyStyling(
+    titleColor: UIColor? = nil,
+    titleTextAlign: NSTextAlignment? = nil
+  ) {
+
+    if let titleColor = titleColor {
+      titleLabel!.textColor = titleColor
     }
-    
+
+    if let titleTextAlign = titleTextAlign {
+      titleLabel!.textAlignment = titleTextAlign
+    }
+  }
+
 }
