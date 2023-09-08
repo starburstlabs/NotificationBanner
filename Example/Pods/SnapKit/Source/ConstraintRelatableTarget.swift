@@ -22,11 +22,10 @@
 //  THE SOFTWARE.
 
 #if os(iOS) || os(tvOS)
-    import UIKit
+  import UIKit
 #else
-    import AppKit
+  import AppKit
 #endif
-
 
 public protocol ConstraintRelatableTarget {
 }
@@ -56,9 +55,9 @@ extension ConstraintInsets: ConstraintRelatableTarget {
 }
 
 #if os(iOS) || os(tvOS)
-@available(iOS 11.0, tvOS 11.0, *)
-extension ConstraintDirectionalInsets: ConstraintRelatableTarget {
-}
+  @available(iOS 11.0, tvOS 11.0, *)
+  extension ConstraintDirectionalInsets: ConstraintRelatableTarget {
+  }
 #endif
 
 extension ConstraintItem: ConstraintRelatableTarget {
